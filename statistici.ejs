@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head><title>Statistici Salarii</title></head>
+<body>
+    <h1>Salariul Mediu pe Departament (> 5000 RON)</h1>
+    <table border="1" cellpadding="10">
+        <tr style="background:#fff3cd">
+            <th>ID Departament</th>
+            <th>Medie Salarială</th>
+            <th>Număr Angajați</th>
+        </tr>
+        <% date.forEach(s => { %>
+            <tr>
+                <td><%= s.ID_DEPARTAMENT %></td>
+                <td><%= parseFloat(s.MEDIE).toFixed(2) %> RON</td>
+                <td><%= s.NR_ANGAJATI %></td>
+            </tr>
+        <% }) %>
+    </table>
+    <br><a href="/">⬅ Înapoi la tabele</a>
+</body>
+</html>

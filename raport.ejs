@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head><title>Raport SUV</title></head>
+<body>
+    <h1>Raport: Clienți cu SUV-uri (Reparații > 2000 RON)</h1>
+    <table border="1" cellpadding="10">
+        <tr style="background:#d1ecf1">
+            <th>Nume Client</th>
+            <th>Nr. Înmatriculare</th>
+            <th>Marcă</th>
+            <th>Cost Reparație</th>
+        </tr>
+        <% date.forEach(r => { %>
+            <tr>
+                <td><%= r.NUME %> <%= r.PRENUME %></td>
+                <td><%= r.NUMAR_INMATRICULARE %></td>
+                <td><%= r.DENUMIRE_MARCA %></td>
+                <td><%= r.PRET_REPARATIE %> RON</td>
+            </tr>
+        <% }) %>
+    </table>
+    <br><a href="/">⬅ Înapoi la tabele</a>
+</body>
+</html>

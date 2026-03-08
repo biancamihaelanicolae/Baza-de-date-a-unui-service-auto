@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head><title>Vizualizări SQL</title></head>
+<body>
+    <h1>Vizualizare Complexă: Top Reparații (RANK)</h1>
+    <table border="1" cellpadding="10">
+        <tr style="background:#d4edda">
+            <th>Loc în Top</th>
+            <th>Număr Înmatriculare</th>
+            <th>Preț Reparație</th>
+        </tr>
+        <% date.forEach(v => { %>
+            <tr>
+                <td><b><%= v.CLASAMENT %></b></td>
+                <td><%= v.NUMAR_INMATRICULARE %></td>
+                <td><%= v.PRET_REPARATIE %> RON</td>
+            </tr>
+        <% }) %>
+    </table>
+    <br><a href="/">⬅ Înapoi la tabele</a>
+</body>
+</html>

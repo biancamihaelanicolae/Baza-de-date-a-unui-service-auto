@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Service Auto - Gestiune</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 30px; background-color: #f0f2f5; }
+        .container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #1a73e8; }
+        .menu { margin-bottom: 20px; padding: 10px; background: #e8f0fe; border-radius: 5px; }
+        .menu a { margin-right: 15px; text-decoration: none; color: #1a73e8; font-weight: bold; }
+        select { padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #f8f9fa; }
+        th a { text-decoration: none; color: #333; }
+        .btn-del { color: white; background: #dc3545; padding: 6px 12px; text-decoration: none; border-radius: 4px; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Panou Administrare Service Auto</h1>
+        
+        <div class="menu">
+            <a href="/raport-complex">Raport SUV-uri (C)</a>
+            <a href="/statistici-salarii">Statistici Salarii (D)</a>
+            <a href="/vizualizari">Top Reparații (F - Complex)</a>
+            <a href="/alerta-stoc">Stoc Critic (F - Simplu)</a>
+        </div>
+
+        <label><b>Alege Tabelul:</b></label><br>
+        <select onchange="window.location.href='/tabel/' + this.value">
+            <option value="">-- Selectează --</option>
+            <option value="ANGAJATI" <%= numeTabel === 'ANGAJATI' ? 'selected' : '' %>>Angajați</option>
+            <option value="CLIENTI" <%= numeTabel === 'CLIENTI' ? 'selected' : '' %>>Clienți</option>
+            <option value="AUTOVEHICULE" <%= numeTabel === 'AUTOVEHICULE' ? 'selected' : '' %>>Autovehicule</option>
+            <option value="MARCI" <%= numeTabel === 'MARCI' ? 'selected' : '' %>>Mărci</option>
+            <option value="PIESE" <%= numeTabel === 'PIESE' ? 'selected' : '' %>>Piese</option>
+            <option value="JOBURI" <%= numeTabel === 'JOBURI' ? 'selected' : '' %>>Joburi</option>
+
+            <option value="ANGAJATI_AUTOVEHICULE" <%= numeTabel === 'ANGAJATI_AUTOVEHICULE' ? 'selected' : '' %>>Angajați - Autovehicule (Legătură)</option>
+            <option value="AUTOVEHICULE_PIESE" <%= numeTabel === 'AUTOVEHICULE_PIESE' ? 'selected' : '' %>>Autovehicule - Piese (Legătură)</option>
+            <option value="V_PIESE_STOC" <%= numeTabel === 'V_PIESE_STOC' ? 'selected' : '' %>>Alertă Stoc Piese (View Simplu)</option>
+        </select>
+
+        <h2>Date din tabelul: <%= numeTabel %></h2>
+        <table>
+            <thead>
+                <tr>
+                    <% coloane.forEach(col => { %>
+                        <th><a href="/tabel/<%= numeTabel %>?sort=<%= col %>"><%= col %> ↕</a></th>
+                    <% }) %>
+                    <th>Acțiuni</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% date.forEach(row => { %>
+                    <tr>
+                        <% coloane.forEach(col => { %>
+                            <td><%= row[col] %></td>
+                        <% }) %>
+                        <td>
+                            <a href="/delete/<%= numeTabel %>/<%= coloane[0] %>/<%= row[coloane[0]] %>" 
+                               class="btn-del" onclick="return confirm('Sigur ștergi?')">Șterge</a>
+                            <button onclick="editRow('<%= JSON.stringify(row) %>')" style="background: #4CAF50; color: white; border: none; padding: 5px; border-radius: 3px; cursor: pointer;">
+                                Edit
+                            </button>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+    </table> </div> <div id="editModal" style="display:none; position:fixed; top:20%; left:30%; background:white; padding:20px; border:2px solid #333; z-index:100; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 8px;">
+    <h3>Modificare înregistrare (Punctul b)</h3>
+    <form id="editForm" method="POST">
+        <div id="formFields"></div>
+        <br>
+        <button type="submit" style="background: #2ecc71; color: white; padding: 10px; border: none; cursor: pointer; border-radius: 4px;">Salvează Modificările</button>
+        <button type="button" onclick="document.getElementById('editModal').style.display='none'" style="background: #95a5a6; color: white; padding: 10px; border: none; cursor: pointer; border-radius: 4px;">Anulează</button>
+    </form>
+</div>
+
+<script>
+function editRow(rowDataRaw) {
+    const rowData = JSON.parse(rowDataRaw);
+    const modal = document.getElementById('editModal');
+    const formFields = document.getElementById('formFields');
+    const form = document.getElementById('editForm');
+    
+    // Setează acțiunea formularului către ruta de update din app.js
+    form.action = '/update/<%= numeTabel %>';
+    formFields.innerHTML = '';
+    
+    for (const key in rowData) {
+        // Prima coloană (cheia primară) va fi 'readonly' pentru a nu fi modificată accidental
+        formFields.innerHTML += `
+            <label><b>${key}:</b></label><br>
+            <input type="text" name="${key}" value="${rowData[key]}" ${key === '<%= coloane[0] %>' ? 'readonly' : ''} style="width:100%; margin-bottom:10px; padding: 5px;"><br>
+        `;
+    }
+    modal.style.display = 'block';
+}
+</script>
+</body>
+</html>
