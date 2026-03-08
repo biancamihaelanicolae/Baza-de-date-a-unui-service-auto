@@ -6,13 +6,21 @@ etc.) dacă acestea sunt necesare pe lângă alte probleme mecanice sau electric
 Reparațiile sunt făcute în funcție de necesitățile clientului, căruia ii sunt specificate
 costurile reparației și data preluării din service a autovehiculului. Prin intermediul
 bazei de date se ține evidența:
+
 · Angajaților
+
 · Departamentelor
+
 · Joburilor
+
 · Clienților
+
 · Autovehiculelor
+
 · Mărcilor, prin care sunt descrise autoturismele aduse pentru reparație
+
 · Pieselor de schimb aflate în magazia serviceului
+
 Modelul permite gestionarea eficientă a inventarului cu piese de schimb, a
 autovehiculelor aduse spre reparație de către clienți, precum și a productivității
 angajaților.
