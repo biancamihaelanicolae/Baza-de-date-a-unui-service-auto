@@ -1,11 +1,4 @@
 # Baza-de-date-a-unui-service-auto
-3
-1.Capitolul I
-Am ales tema proiectului “Managementul unui Service Auto” pentru că tatăl meu
-lucrează în domeniu și mereu mi s-a părut interesant ceea ce face și cât de pasionat
-este de acest job. Am realizat o interfață web conectată la o bază de date pentru a
-gestiona și organiza informațiile.
-1.1 Prezentarea Proiectului:
 Proiectul surprinde activitatea unui service auto care se ocupă cu reparațiile
 diverselor tipuri de autoturisme: mașini mici, SUV, dubiţe, oferind și servicii de
 schimb de piese depozitate în magazia serviceului (ex: ulei, plăcuțe de frână, filtre
